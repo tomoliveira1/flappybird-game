@@ -101,64 +101,22 @@ const flappyBird = {
         //Drawing the FlappyBird
         context.drawImage(
             sprites,
-            flappyBird.sX, flappyBird.sY, //Sprite X, Sprite Y
-            flappyBird.w, flappyBird.h, // Sprite crop size
+            flappyBird.spriteX, flappyBird.spriteY, //Sprite X, Sprite Y
+            flappyBird.width, flappyBird.height, // Sprite crop size
             flappyBird.x, flappyBird.y,
-            flappyBird.w, flappyBird.h,
+            flappyBird.width, flappyBird.height,
         );
     },
 };
 
-//
-// Screens
-//
-let activeScreen = {};
-function changeScreen(newScreen) {
-    activeScreen = newScreen;
-};
-const screens = {
-    START: {
-        draw() {
-            
-            backGround.draw();
-            flappyBird.draw();
-            grass.draw();
-            getReady.draw();
-        },
-        click() {
-            changeScreen(screens.GAME)
-        },
-        refresh() {
-        }
-    }
-};
-
-screens.GAME = {
- draw() {
+function loop() {
     
+    flappyBird.refresh();
     backGround.draw();
     flappyBird.draw();
     grass.draw();
 
- },
- refresh() {
-    flappyBird.refresh();
- }
-};
-
-function loop() {
-
-    activeScreen.draw();
-    activeScreen.refresh();
-
     requestAnimationFrame(loop);    
 }
 
-window.addEventListener('click', function(){
-    if (activeScreen.click) {
-        activeScreen.click();
-    };
-});
-
-changeScreen(screens.START);
 loop();

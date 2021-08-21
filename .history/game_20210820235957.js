@@ -125,10 +125,8 @@ const screens = {
             grass.draw();
             getReady.draw();
         },
-        click() {
-            changeScreen(screens.GAME)
-        },
         refresh() {
+
         }
     }
 };

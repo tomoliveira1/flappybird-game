@@ -119,16 +119,10 @@ function changeScreen(newScreen) {
 const screens = {
     START: {
         draw() {
-            
-            backGround.draw();
-            flappyBird.draw();
-            grass.draw();
             getReady.draw();
         },
-        click() {
-            changeScreen(screens.GAME)
-        },
         refresh() {
+
         }
     }
 };
@@ -147,18 +141,7 @@ screens.GAME = {
 };
 
 function loop() {
-
-    activeScreen.draw();
-    activeScreen.refresh();
-
     requestAnimationFrame(loop);    
 }
-
-window.addEventListener('click', function(){
-    if (activeScreen.click) {
-        activeScreen.click();
-    };
-});
-
 changeScreen(screens.START);
 loop();

@@ -54,10 +54,10 @@ const grass = {
 
 //Background
 const backGround = {
-    sX: 390,
-    sY: 0,
-    w: 275,
-    h: 204,
+    spriteX: 390,
+    spriteY: 0,
+    width: 275,
+    height: 204,
     x: 0,
     y: canvas.height - 204,
     draw() {
@@ -68,26 +68,26 @@ const backGround = {
         //Drawing the FlappyBird
         context.drawImage(
             sprites,
-            backGround.sX, backGround.sY, //Sprite X, Sprite Y
-            backGround.w, backGround.h, // Sprite crop size
+            backGround.spriteX, backGround.spriteY, //Sprite X, Sprite Y
+            backGround.width, backGround.height, // Sprite crop size
             backGround.x, backGround.y,
-            backGround.w, backGround.h,
+            backGround.width, backGround.height,
         );
         context.drawImage(
             sprites,
-            backGround.sX, backGround.sY, //Sprite X, Sprite Y
-            backGround.w, backGround.h, // Sprite crop size
-            (backGround.x + backGround.w), backGround.y,
-            backGround.w, backGround.h,
+            backGround.spriteX, backGround.spriteY, //Sprite X, Sprite Y
+            backGround.width, backGround.height, // Sprite crop size
+            (backGround.x + backGround.width), backGround.y,
+            backGround.width, backGround.height,
         );
     },
 };
 
 const flappyBird = {
-    sX: 0,
-    sY: 0,
-    w: 33,
-    h: 24,
+    spriteX: 0,
+    spriteY: 0,
+    width: 33,
+    height: 24,
     x: 10,
     y: 50,
     speed: 0,
@@ -101,64 +101,22 @@ const flappyBird = {
         //Drawing the FlappyBird
         context.drawImage(
             sprites,
-            flappyBird.sX, flappyBird.sY, //Sprite X, Sprite Y
-            flappyBird.w, flappyBird.h, // Sprite crop size
+            flappyBird.spriteX, flappyBird.spriteY, //Sprite X, Sprite Y
+            flappyBird.width, flappyBird.height, // Sprite crop size
             flappyBird.x, flappyBird.y,
-            flappyBird.w, flappyBird.h,
+            flappyBird.width, flappyBird.height,
         );
     },
 };
 
-//
-// Screens
-//
-let activeScreen = {};
-function changeScreen(newScreen) {
-    activeScreen = newScreen;
-};
-const screens = {
-    START: {
-        draw() {
-            
-            backGround.draw();
-            flappyBird.draw();
-            grass.draw();
-            getReady.draw();
-        },
-        click() {
-            changeScreen(screens.GAME)
-        },
-        refresh() {
-        }
-    }
-};
-
-screens.GAME = {
- draw() {
+function loop() {
     
+    flappyBird.refresh();
     backGround.draw();
     flappyBird.draw();
     grass.draw();
 
- },
- refresh() {
-    flappyBird.refresh();
- }
-};
-
-function loop() {
-
-    activeScreen.draw();
-    activeScreen.refresh();
-
     requestAnimationFrame(loop);    
 }
 
-window.addEventListener('click', function(){
-    if (activeScreen.click) {
-        activeScreen.click();
-    };
-});
-
-changeScreen(screens.START);
 loop();

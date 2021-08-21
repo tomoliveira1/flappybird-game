@@ -112,23 +112,14 @@ const flappyBird = {
 //
 // Screens
 //
-let activeScreen = {};
-function changeScreen(newScreen) {
-    activeScreen = newScreen;
-};
+
 const screens = {
     START: {
         draw() {
-            
-            backGround.draw();
-            flappyBird.draw();
-            grass.draw();
             getReady.draw();
         },
-        click() {
-            changeScreen(screens.GAME)
-        },
         refresh() {
+
         }
     }
 };
@@ -136,29 +127,19 @@ const screens = {
 screens.GAME = {
  draw() {
     
+    flappyBird.refresh();
     backGround.draw();
     flappyBird.draw();
     grass.draw();
 
  },
  refresh() {
-    flappyBird.refresh();
+
  }
 };
 
 function loop() {
-
-    activeScreen.draw();
-    activeScreen.refresh();
-
     requestAnimationFrame(loop);    
 }
 
-window.addEventListener('click', function(){
-    if (activeScreen.click) {
-        activeScreen.click();
-    };
-});
-
-changeScreen(screens.START);
 loop();
